@@ -1,0 +1,14 @@
+# JetBrains Files
+.idea
+
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+
+.
+node_modules
+static
+*.pyc
+__pycache__

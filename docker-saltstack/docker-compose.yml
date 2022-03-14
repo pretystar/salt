@@ -1,0 +1,57 @@
+version: '3.7'
+
+services: 
+  mysql-db:
+    container_name: mysql-db        # 指定容器的名称
+    image: mysql                  # 指定镜像和版本
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}
+    volumes:
+      - "./data:/var/lib/mysql"           # 挂载数据目录
+      - "./mysqlconfig:/etc/mysql/conf.d"      # 挂载配置文件目录
+      - "./mysqlinit:/docker-entrypoint-initdb.d/"
+  salt-master:
+    depends_on:
+      - mysql-db
+    container_name: salt-master
+    # image: saltstack/salt
+
+    ports:
+      - "8080:8080"
+      - "4505:4505"
+      - "4506:4506"
+    # environment:
+    #   SALT_SHARED_SECRET: P@ssword
+    build:
+      context: .
+      dockerfile: Dockerfile.master
+    volumes:
+      - "./master:/etc/salt/master.d/"  
+    # configs:
+    #   - source: saltapiconfig
+    #     target: /etc/salt/master.d/
+  salt-minion:
+    container_name: salt-minion
+    volumes:
+      - "./minion:/etc/salt/minion.d/" 
+    build:
+      context: .
+      dockerfile: Dockerfile.minion
+    depends_on:
+      - salt-master
+  client:
+    container_name: pythonclient
+    image: python
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.python
+    command: ["/bin/sh","-c", "while true; do echo hello; sleep 30;done"]
+    volumes:
+      - "./script:/script/"  
+# configs:
+#   saltapiconfig:
+#     file: ./master-api.conf
+  

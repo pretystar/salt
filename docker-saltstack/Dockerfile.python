@@ -1,0 +1,10 @@
+FROM python3
+RUN apt-get update -y
+RUN apt-get install apt-utils wget gnupg -y
+
+RUN echo "deb http://repo.saltstack.com/py3/ubuntu/18.04/amd64/latest bionic main" > /etc/apt/sources.list.d/saltstack.list
+RUN apt-get update -y && \
+    apt-get install python3-mysqldb -y && \
+    apt-get clean all
+
+# ENTRYPOINT ["/bin/sh","-c", "while true; do echo hello; sleep 30;done"]
