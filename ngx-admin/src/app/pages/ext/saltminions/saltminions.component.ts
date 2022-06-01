@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild  } from '@angular/core';
 import { SaltInput, SaltService } from '../services/salt.service';
 import { SmartTableData } from '../../../@core/data/smart-table';
 import { LocalDataSource } from 'ng2-smart-table';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { DialogComponent } from '../../modal-overlays/dialog/dialog.component';
-
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'ngx-saltminions',
   templateUrl: './saltminions.component.html',
@@ -14,6 +14,7 @@ export class SaltminionsComponent implements OnInit {
   data: any
   error: any
   minions = []
+  
   // source1: LocalDataSource = new LocalDataSource();
 
   displayedColumns: string[] = ['id', 'fqdn', 'osfinger', 'details', 'actions'];
@@ -26,7 +27,7 @@ export class SaltminionsComponent implements OnInit {
   //   const data = this.table.getData();
   //   this.source1.load(data);
   // }
-  constructor(private saltsvc: SaltService){}
+  constructor(private saltsvc: SaltService, public dialog: MatDialog){}
   // settings = {
   //   add: {
   //     addButtonContent: '<i class="nb-plus"></i>',
@@ -83,6 +84,11 @@ export class SaltminionsComponent implements OnInit {
   }
   runcmd(element){
     console.log(element)
+    // const dialogRef = this.dialog.open(JsonDialog, element.value);
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log(`Dialog result: ${result}`);
+    // });
   }
   get_grains(){
     this.saltsvc.get_grains().subscribe((data: any) => {
@@ -96,3 +102,22 @@ export class SaltminionsComponent implements OnInit {
     )
   }
 }
+// @Component({
+//   selector: 'json-dialog',
+//   template: '<json-editor [options]="editorOptions" [data]="data"></json-editor>',
+// })
+
+// export class JsonDialog {
+//   @Input() data;
+//   public editorOptions: JsonEditorOptions;
+//   @ViewChild(JsonEditorComponent) editor: JsonEditorComponent;
+
+//   constructor() { 
+//     this.editorOptions = new JsonEditorOptions()
+//     this.editorOptions.modes = ['code', 'text', 'tree', 'view']; // set all allowed modes
+//     //this.options.mode = 'code'; //set only one mode
+      
+//       // this.data = {"products":[{"name":"car","product":[{"name":"honda","model":[{"id":"civic","name":"civic"},{"id":"accord","name":"accord"},{"id":"crv","name":"crv"},{"id":"pilot","name":"pilot"},{"id":"odyssey","name":"odyssey"}]}]}]}
+//   }
+
+// }

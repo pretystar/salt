@@ -5,7 +5,7 @@ import { ExtRoutingModule } from './ext-routing.module';
 import { SaltService } from './services/salt.service';
 import { ExtComponent } from './ext.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import {
   NbActionsModule,
   NbButtonModule,
@@ -17,7 +17,6 @@ import {
   NbSelectModule,
   NbUserModule,
 } from '@nebular/theme';
-
 import { ThemeModule } from '../../@theme/theme.module';
 import { FormsModule as ngFormsModule } from '@angular/forms';
 import { SaltminionsComponent } from './saltminions/saltminions.component';
@@ -43,7 +42,7 @@ import { SaltminionsComponent } from './saltminions/saltminions.component';
     ngFormsModule,
     ExtRoutingModule,
     Ng2SmartTableModule,
-    MatTableModule
+    MatTableModule,
   ],
   providers: [
     SaltService,

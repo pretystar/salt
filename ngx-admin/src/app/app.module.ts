@@ -11,7 +11,6 @@ import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { Ng4JsonEditorModule } from 'angular4-jsoneditor';
 import {
   NbChatModule,
   NbDatepickerModule,
@@ -29,7 +28,6 @@ import {
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    Ng4JsonEditorModule,
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),
     NbDatepickerModule.forRoot(),
