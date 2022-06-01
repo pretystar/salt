@@ -22,6 +22,7 @@ def saltminions():
     # content = request.json
     saltapi = get_saltapi()
     result = saltapi.get_minion_status()
+    # result = saltapi.minion_alive()
     return result
 @default.route('/salt/grains/')
 def saltgrains():

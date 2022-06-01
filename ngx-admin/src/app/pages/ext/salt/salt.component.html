@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card class="inline-form-card">
+      <nb-card-header>Salt Command</nb-card-header>
+      <nb-card-body>
+        <form class="form-inline">
+          <input type="text" nbInput fullWidth placeholder="Target, e.g. *" [(ngModel)]="saltInput.target" name="targe">
+          <input type="text" nbInput fullWidth placeholder="Fun, e.g. cmd.run" [(ngModel)]="saltInput.fun" name="fun">
+          <input type="text" nbInput fullWidth placeholder="Arg. e.g. df -hT" [(ngModel)]="saltInput.arg" name="arg">
+          <nb-checkbox [(ngModel)]="saltInput.isasync" name="isasync">Async</nb-checkbox>
+          <br />
+          <button type="submit" nbButton status="primary" (click)="saltcmd()">Submit</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <p *ngIf="data">{{data | json}}</p>
+  <p *ngIf="error" class="error">{{error | json}}</p>
+</div>

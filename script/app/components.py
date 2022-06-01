@@ -4,7 +4,7 @@ from app.utils.salt import SaltApi
 
 def get_saltapi():
     if 'saltapi' not in g:
-        g.saltapi = SaltApi(current_app.config["SALT_URL"],current_app.config["SALT_USER"],current_app.config["SALT_PASS"])
+        g.saltapi = SaltApi(current_app.config["SALT_URL"],current_app.config["SALT_USER"],current_app.config["SALT_PASS"], current_app.config["SALT_EAUTH"])
         # g.db.row_factory = sqlite3.Row
 
     return g.saltapi

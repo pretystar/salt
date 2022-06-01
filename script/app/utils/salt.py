@@ -11,10 +11,11 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 class SaltApi(object):
 
-    def __init__(self, url=None, username=None, password=None):
+    def __init__(self, url=None, username=None, password=None, eauth=None):
         self.__url = url
         self.__user = username
         self.__password = password
+        self.__eauth = eauth
         self.__headers = {'Accept': 'application/json', 'Content-type': 'application/json'}
         self.__data = {'client': 'local', 'tgt': None, 'fun': None, 'arg': None}
         self.__token = None
@@ -24,7 +25,7 @@ class SaltApi(object):
         用户登陆和获取token
         :return:
         """
-        params = {'eauth': 'mysql', 'username': self.__user, 'password': self.__password}
+        params = {'eauth': self.__eauth, 'username': self.__user, 'password': self.__password}
         content = self.postRequest(params, self.__headers, prefix='login')
         try:
             self.__token = content['return'][0]['token']
@@ -158,7 +159,7 @@ class SaltApi(object):
     def cmd(self, target=None, fun='cmd.run', arg=None, isasync=False):
         """
         远程执行任务
-        :param target: 目标客户端，为空return False
+        :param target: 目标客户端, 为空return False
         :param fun: 模块
         :param arg: 参数，可为空
         :param async: 异步执行，默认非异步
@@ -210,6 +211,9 @@ class SaltApi(object):
             s = requests.Session()
             s.mount('https://', HTTPAdapter(max_retries=10))
             ret = s.post(url, data=json.dumps(data), headers=headers, verify=False, timeout=(30, 60))
+            # print(ret.request.url)
+            # print(ret.request.body)
+            # print(ret.request.headers)
             if ret.status_code == 401:
                 print('401 Unauthorized')
                 return {'return': [{'success': False, 'msg': '401 Unauthorized'}]}
