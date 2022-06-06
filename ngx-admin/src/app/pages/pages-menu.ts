@@ -18,6 +18,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'SaltMinions',
         link: '/pages/ext/minions',
       },
+      {
+        title: 'SaltJobs',
+        link: '/pages/ext/jobs',
+      },
     ]
   },
   {

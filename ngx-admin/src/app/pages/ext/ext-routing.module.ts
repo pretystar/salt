@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SaltComponent } from './salt/salt.component';
 import { SaltminionsComponent } from './saltminions/saltminions.component';
+import { SaltjoblistComponent } from './saltjoblist/saltjoblist.component';
 import { ExtComponent } from './ext.component';
 const routes: Routes = [
   {
@@ -19,7 +20,12 @@ const routes: Routes = [
   {
     path: 'minions',
     component: SaltminionsComponent,
-  },]
+  },
+  {
+    path: 'jobs',
+    component: SaltjoblistComponent,
+  },
+]
   // {
   //   path: 'd3',
   //   component: D3Component,

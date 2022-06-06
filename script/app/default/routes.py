@@ -1,3 +1,4 @@
+from unittest import result
 from . import default
 from flask import redirect, current_app, request, g
 from ..components import get_saltapi
@@ -31,6 +32,12 @@ def saltgrains():
     target = request.args.get('target')
     saltapi = get_saltapi()
     result = saltapi.get_grains(target)
+    return result
+@default.route('/salt/jobs/')
+def saltjobs():
+    jid = request.args.get("jid")
+    saltapi = get_saltapi()
+    result =  saltapi.get_jobs(jid)
     return result
 # import app
 # from flask import send_file, render_template

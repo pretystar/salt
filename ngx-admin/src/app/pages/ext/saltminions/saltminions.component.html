@@ -45,12 +45,15 @@ Minion List:
 
     <ng-container matColumnDef="details">
       <th mat-header-cell  *matHeaderCellDef > details </th>
-      <td mat-cell *matCellDef="let element" > <a onclick="showdetails(element)"> details </a></td>
+      <td mat-cell *matCellDef="let element" > <button mat-button (click)="showdetails(element)"> details </button></td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell  *matHeaderCellDef > Actions </th>
-      <td mat-cell *matCellDef="let element" ><button mat-button (click)="runcmd(element)">Run comand</button> </td>
+      <td mat-cell *matCellDef="let element" >
+        <!-- <button mat-button (click)="runcmd(element)">Run comand</button>  -->
+        <a [routerLink]="['/pages/ext/cmd', {target:element.key}]">Run command</a>
+      </td>
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

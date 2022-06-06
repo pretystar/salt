@@ -6,6 +6,7 @@ import { SaltService } from './services/salt.service';
 import { ExtComponent } from './ext.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { MatTableModule } from '@angular/material/table';
+import { MatTreeModule } from '@angular/material/tree';
 import {
   NbActionsModule,
   NbButtonModule,
@@ -20,11 +21,15 @@ import {
 import { ThemeModule } from '../../@theme/theme.module';
 import { FormsModule as ngFormsModule } from '@angular/forms';
 import { SaltminionsComponent } from './saltminions/saltminions.component';
+import { JsondialogComponent } from './jsondialog/jsondialog.component';
+import { SaltjoblistComponent } from './saltjoblist/saltjoblist.component';
 @NgModule({
   declarations: [
     ExtComponent,
     SaltComponent,
-    SaltminionsComponent
+    SaltminionsComponent,
+    JsondialogComponent,
+    SaltjoblistComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +48,7 @@ import { SaltminionsComponent } from './saltminions/saltminions.component';
     ExtRoutingModule,
     Ng2SmartTableModule,
     MatTableModule,
+    MatTreeModule
   ],
   providers: [
     SaltService,

@@ -1,0 +1,41 @@
+<table mat-table [dataSource]="data | keyvalue" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> id. </th>
+      <td mat-cell *matCellDef="let element"> {{element.key}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="user">
+      <th mat-header-cell *matHeaderCellDef> user </th>
+      <td mat-cell *matCellDef="let element"> {{element.value.User}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="function">
+      <th mat-header-cell *matHeaderCellDef> function </th>
+      <td mat-cell *matCellDef="let element"> {{element.value.Function}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="target">
+      <th mat-header-cell  *matHeaderCellDef > target </th>
+      <td mat-cell *matCellDef="let element"> {{element.value.Target}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="starttime">
+        <th mat-header-cell  *matHeaderCellDef > starttime </th>
+        <td mat-cell *matCellDef="let element"> {{element.value.StartTime}} </td>
+      </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell  *matHeaderCellDef > Actions </th>
+      <td mat-cell *matCellDef="let element" >
+        <!-- <button mat-button (click)="runcmd(element)">Run comand</button>  -->
+        <a [routerLink]="['/pages/ext/jobdetail', {target:element.key}]">details</a>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

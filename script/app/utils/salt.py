@@ -1,5 +1,6 @@
 import json
 import copy
+from webbrowser import get
 import requests
 # from crypt import crypt
 from requests.adapters import HTTPAdapter
@@ -181,7 +182,7 @@ class SaltApi(object):
 
     def jobs(self, fun=None, jid=None):
         """
-        任务
+        OBSOLETE, don't use 任务
         :param fun: active,detail
         :param jid: Job ID
         :return:
@@ -194,14 +195,42 @@ class SaltApi(object):
             data['fun'] = 'jobs.lookup_jid'
             data['jid'] = jid
         else:
-            return {'success': False, 'msg': 'fun is active or detail'}
+            data['fun'] = 'jobs'
+            #return {'success': False, 'msg': 'fun is active or detail'}
         content = self.postRequest(data, self.__headers)
         try:
             return content['return'][0]
         except Exception as e:
             print(e)
             return content
-
+    def get_jobs(self,jid=None):
+        content = self.getRequest(self.__headers,"jobs/"+jid)
+        try:
+            return content['return'][0]
+        except Exception as e:
+            print(e)
+            return content
+    def getRequest(self, headers, prefix=None):
+        if prefix:
+            url = '{}/{}'.format(self.__url, prefix)
+        else:
+            url = self.__url
+        try:
+            s = requests.Session()
+            s.mount('https://', HTTPAdapter(max_retries=10))
+            ret = s.get(url, headers=headers, verify=False, timeout=(30, 60))
+            # print(ret.request.url)
+            # print(ret.request.body)
+            # print(ret.request.headers)
+            if ret.status_code == 401:
+                print('401 Unauthorized')
+                return {'return': [{'success': False, 'msg': '401 Unauthorized'}]}
+            elif ret.status_code == 200:
+                return ret.json()
+        except Exception as e:
+            print(e)
+            return {'return': [{'success': False, 'msg': e}]}
+    
     def postRequest(self, data, headers, prefix=None):
         if prefix:
             url = '{}/{}'.format(self.__url, prefix)
